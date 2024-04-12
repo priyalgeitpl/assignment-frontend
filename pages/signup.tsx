@@ -39,7 +39,7 @@ const SignUp = () => {
 
         try {
             debugger
-            const response = await fetch('http://localhost:3002/register', {
+            const response = await fetch('https://assignment-backend-five.vercel.app/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ export const apiService = {
 
     login: async (data: any) => {
         try {
-            const response = await fetch('http://localhost:3002/login', {
+            const response = await fetch('https://assignment-backend-five.vercel.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export const apiService = {
     SaveCategories: async (userId: number, categories: string[]) => {
         try {
             const data = { userId: userId, categories: categories };
-            const response = await fetch('http://localhost:3002/categories', {
+            const response = await fetch('https://assignment-backend-five.vercel.app/categories', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export const apiService = {
 
     getAllCategories: async () => {
         try {
-            const response = await fetch('http://localhost:3002/categories', {
+            const response = await fetch('https://assignment-backend-five.vercel.app/categories', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
