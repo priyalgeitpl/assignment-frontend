@@ -23,7 +23,8 @@ const VerifyEmail: React.FC<VerifyEmailProps> = () => {
     const userEmail = useSelector((state: RootState) => state.user.user.email);
 
     const [verificationCode, setVerificationCode] = useState(Array(8).fill(''));
-    const inputRefs = Array.from({ length: 8 }, () => React.createRef<HTMLInputElement>());
+    // const inputRefs = Array.from({ length: 8 }, () => React.createRef<HTMLInputElement>());
+    const inputRefs = Array(8).fill(useRef(null));
 
     const handleChange = (index: number, value: string) => {
         const newVerificationCode = [...verificationCode];
