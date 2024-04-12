@@ -42,7 +42,7 @@ const Dashboard = () => {
         }
         dispatch(setCheckedItems(user.category));
         getAllCategories();
-    }, [router, dispatch, checkedItems]);
+    }, [router, dispatch, user.category]);
 
     const getAllCategories = async () => {
         const data = await apiService.getAllCategories()
