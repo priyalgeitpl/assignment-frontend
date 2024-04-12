@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import { Button, Typography, Grid } from '@mui/material';
@@ -33,6 +33,10 @@ const VerifyEmail: React.FC<VerifyEmailProps> = () => {
             inputRefs[index + 1].current?.focus();
         }
     };
+
+    useEffect(() => {
+        inputRefs[0].current?.focus();
+    }, []);
 
     const handleVerify = async () => {
         const code = verificationCode.join('');

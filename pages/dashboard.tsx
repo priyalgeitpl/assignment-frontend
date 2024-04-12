@@ -36,14 +36,12 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        dispatch(setCheckedItems(user.category));
-    }, [])
-
-    useEffect(() => {
         const isAuthenticated = sessionStorage.getItem('accessToken');
         if (!isAuthenticated) {
             router.push('/login');
         }
+        dispatch(setCheckedItems(user.category));
+        getAllCategories();
     }, []);
 
     const getAllCategories = async () => {
@@ -51,10 +49,6 @@ const Dashboard = () => {
         const categories = data.map((o: { title: any; }) => o.title)
         setOptions(categories);
     }
-
-    useEffect(() => {
-        getAllCategories();
-    }, []);
 
     const optionsPerPage = 6;
     const startIndex = (page - 1) * optionsPerPage;
