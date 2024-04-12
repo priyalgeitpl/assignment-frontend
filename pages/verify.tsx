@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import { Button, Typography, Grid } from '@mui/material';
@@ -21,22 +21,31 @@ const VerifyEmail: React.FC<VerifyEmailProps> = () => {
     const router = useRouter();
     const userEmail = useSelector((state: RootState) => state.user.user.email);
 
-    const [verificationCode, setVerificationCode] = useState(Array(8).fill(''));
-    // const inputRefs = Array.from({ length: 8 }, () => useRef<HTMLInputElement>(null));
+    const [verificationCode, setVerificationCode] = useState(Array(8)?.fill(""));
+    const inputRefs = useRef<HTMLInputElement[]>([]);
+
+    useEffect(() => {
+        if (inputRefs.current[0]) {
+            inputRefs.current[0]?.focus();
+        }
+    }, []);
 
     const handleChange = (index: number, value: string) => {
         const newVerificationCode = [...verificationCode];
         newVerificationCode[index] = value;
         setVerificationCode(newVerificationCode);
 
-        // if (value && index < 7) {
-        //     inputRefs[index + 1].current?.focus();
-        // }
+        if (value && index < 7) {
+            inputRefs.current[index + 1]?.focus();
+        }
     };
 
-    // useEffect(() => {
-    //     inputRefs[0].current?.focus();
-    // }, [inputRefs]);
+    const handleKeyDown = (index: number, e: KeyboardEvent<HTMLDivElement>) => {
+        const backspaceKey = "Backspace";
+        if (e.key === backspaceKey && !verificationCode[index] && index > 0 && inputRefs.current[index - 1]) {
+            inputRefs.current[index - 1].focus();
+        }
+    };
 
     const handleVerify = async () => {
         const code = verificationCode.join('');
@@ -73,7 +82,8 @@ const VerifyEmail: React.FC<VerifyEmailProps> = () => {
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 inputProps={{ maxLength: 1 }}
                                 style={{ width: 50, textAlign: 'center' }}
-                            // inputRef={inputRefs[index]}
+                                inputRef={ref => inputRefs.current[index] = ref}
+                                onKeyDown={(e) => handleKeyDown(index, e)}
                             />
                         </Grid>
                     ))}

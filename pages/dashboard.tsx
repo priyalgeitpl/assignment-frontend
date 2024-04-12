@@ -42,7 +42,7 @@ const Dashboard = () => {
         }
         dispatch(setCheckedItems(user.category));
         getAllCategories();
-    });
+    }, [user.category]);
 
     const getAllCategories = async () => {
         const data = await apiService.getAllCategories()

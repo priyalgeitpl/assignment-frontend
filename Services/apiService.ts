@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3002';
+const BASE_URL = 'https://assignment-backend-five.vercel.app';
 
 export const apiService = {
 
