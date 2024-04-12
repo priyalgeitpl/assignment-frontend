@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import React from 'react';
 
 interface VerifyEmailProps {
     formData: {
@@ -18,13 +17,16 @@ interface VerifyEmailProps {
     };
 }
 
+const useInputRefs = (length: number) => {
+    return Array.from({ length }, () => useRef<HTMLInputElement>(null));
+};
+
 const VerifyEmail: React.FC<VerifyEmailProps> = () => {
     const router = useRouter();
     const userEmail = useSelector((state: RootState) => state.user.user.email);
 
     const [verificationCode, setVerificationCode] = useState(Array(8).fill(''));
-    // const inputRefs = Array.from({ length: 8 }, () => React.createRef<HTMLInputElement>());
-    const inputRefs = Array(8).fill(useRef(null));
+    const inputRefs = useInputRefs(8);
 
     const handleChange = (index: number, value: string) => {
         const newVerificationCode = [...verificationCode];
