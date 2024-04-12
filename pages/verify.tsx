@@ -17,30 +17,26 @@ interface VerifyEmailProps {
     };
 }
 
-const useInputRefs = (length: number) => {
-    return Array.from({ length }, () => useRef<HTMLInputElement>(null));
-};
-
 const VerifyEmail: React.FC<VerifyEmailProps> = () => {
     const router = useRouter();
     const userEmail = useSelector((state: RootState) => state.user.user.email);
 
     const [verificationCode, setVerificationCode] = useState(Array(8).fill(''));
-    const inputRefs = useInputRefs(8);
+    // const inputRefs = Array.from({ length: 8 }, () => useRef<HTMLInputElement>(null));
 
     const handleChange = (index: number, value: string) => {
         const newVerificationCode = [...verificationCode];
         newVerificationCode[index] = value;
         setVerificationCode(newVerificationCode);
 
-        if (value && index < 7) {
-            inputRefs[index + 1].current?.focus();
-        }
+        // if (value && index < 7) {
+        //     inputRefs[index + 1].current?.focus();
+        // }
     };
 
-    useEffect(() => {
-        inputRefs[0].current?.focus();
-    }, [inputRefs]);
+    // useEffect(() => {
+    //     inputRefs[0].current?.focus();
+    // }, [inputRefs]);
 
     const handleVerify = async () => {
         const code = verificationCode.join('');
@@ -77,7 +73,7 @@ const VerifyEmail: React.FC<VerifyEmailProps> = () => {
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 inputProps={{ maxLength: 1 }}
                                 style={{ width: 50, textAlign: 'center' }}
-                                inputRef={inputRefs[index]}
+                            // inputRef={inputRefs[index]}
                             />
                         </Grid>
                     ))}
